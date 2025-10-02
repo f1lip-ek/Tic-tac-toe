@@ -1,4 +1,4 @@
-public class Entita {
+public abstract class Entita {
 
     protected int tah;
     protected String ikona;

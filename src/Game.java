@@ -77,17 +77,38 @@ public class Game {
             }
         } else if (e == ai) {
             this.aiPole = ai.getMove();
-            while(true){
-                int i = 0;
+            int i = 1;
+            while(!gameEnd()){
                 if(!hraciPole[aiPole[0]][aiPole[1]].isJeAktivni()){
                     this.hraciPole[aiPole[0]][aiPole[1]].setJeAktivni(e);
                     break;
-                }else/* if (hraciPole[aiPole[0]][aiPole[1]].isJeAktivni())*/{
+                }else /*if (hraciPole[aiPole[0]][aiPole[1]].isJeAktivni())*/{
                     this.aiPole = ai.getMove();
-                    System.out.println(i);
+                    System.out.print("\n"+ i + "\n\n");
+                    i++;
                 }
-                i++;
             }
+            if (gameEnd()){
+                System.out.println(printHraciPole());
+                System.out.println("Game Over");
+                System.exit(0);
+            }
+        }
+    }
+
+    public boolean gameEnd(){
+        int counter = 0;
+        for (int i = 0; i < velikost; i++) {
+            for (int j = 0; j < velikost; j++) {
+                if(hraciPole[i][j].isJeAktivni()){
+                    counter++;
+                }
+            }
+        }
+        if (counter == Math.pow(velikost, 2)){
+            return true;
+        } else {
+            return false;
         }
     }
 }
