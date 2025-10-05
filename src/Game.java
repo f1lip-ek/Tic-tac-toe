@@ -8,7 +8,7 @@ public class Game {
     private final AI ai;
     private final EndChecker endChecker;
 
-    private Scanner sc;
+    private final Scanner sc;
 
     public Game() {
         this.endChecker = new EndChecker();
@@ -31,14 +31,14 @@ public class Game {
     }
 
     public void setPole(){
-        gameField[0][0].setJeAktivni(player);
-        gameField[0][1].setJeAktivni(player);
-        gameField[0][2].setJeAktivni(player);
-        gameField[1][0].setJeAktivni(player);
-        gameField[1][1].setJeAktivni(player);
-        gameField[1][2].setJeAktivni(player);
-        gameField[2][2].setJeAktivni(player);
-        gameField[2][0].setJeAktivni(player);
+        gameField[0][0].setActive(player);
+        gameField[0][1].setActive(player);
+        gameField[0][2].setActive(player);
+        gameField[1][0].setActive(player);
+        gameField[1][1].setActive(player);
+        gameField[1][2].setActive(player);
+        gameField[2][2].setActive(player);
+        gameField[2][0].setActive(player);
     }
 
     public void start(){
@@ -62,13 +62,13 @@ public class Game {
         return pole;
     }
 
-    public void setPrvek(Entita e){
+    public void setPrvek(EntityClass e){
         if(e == player){
             while(true){
                 int x = sc.nextInt() - 1;
                 int y = sc.nextInt() - 1;
-                if (!gameField[x][y].isJeAktivni()) {
-                    this.gameField[x][y].setJeAktivni(e);
+                if (!gameField[x][y].isActive()) {
+                    this.gameField[x][y].setActive(e);
                     endChecker.gameEnd(gameField, e, x, y);
                     break;
                 } else {
@@ -79,12 +79,12 @@ public class Game {
             int[] aiPole = ai.getMove();
             int i = 1;
             while(/*!endChecker.gameEnd(gameField, e, aiPole[0], aiPole[1])*/true){
-                if(!gameField[aiPole[0]][aiPole[1]].isJeAktivni()){
-                    this.gameField[aiPole[0]][aiPole[1]].setJeAktivni(e);
+                if(!gameField[aiPole[0]][aiPole[1]].isActive()){
+                    this.gameField[aiPole[0]][aiPole[1]].setActive(e);
                     break;
                 }else /*if (hraciPole[aiPole[0]][aiPole[1]].isJeAktivni())*/{
                     aiPole = ai.getMove();
-                    //System.out.print("\n"+ i + "\n\n");
+                    System.out.print("\n"+ i + "\n\n");
                     i++;
                 }
             }

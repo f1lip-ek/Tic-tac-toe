@@ -1,26 +1,26 @@
 public class Box {
 
     private String ikona = "N";
-    private boolean jeAktivni;
-    private Entity entita;
+    private boolean isActive;
+    private Entity entity;
 
     public Box(){
-        this.jeAktivni = false;
+        this.isActive = false;
     }
 
-    public Entity getEntita(){
-        return this.entita;
+    public Entity getEntity(){
+        return this.entity;
     }
 
 
-    public boolean isJeAktivni(){
-        return this.jeAktivni;
+    public boolean isActive(){
+        return this.isActive;
     }
 
-    public void setJeAktivni(Entita e){
-        this.jeAktivni = true;
-        this.ikona = e.getIkona();
-        this.entita = e.entita;
+    public void setActive(EntityClass e){
+        this.isActive = true;
+        this.ikona = e.getIcon();
+        this.entity = e.entity;
     }
 
     public String toString(){

@@ -1,8 +1,8 @@
-public class Player extends Entita{
+public class Player extends EntityClass {
 
     public Player(){
-        this.ikona = "X";
-        this.entita = Entity.PLAYER;
+        this.icon = "X";
+        this.entity = Entity.PLAYER;
     }
 
     public void addTah(){
@@ -13,10 +13,5 @@ public class Player extends Entita{
     public int getTah(){
         return tah;
     }
-
-    public String getIkona(){
-        return ikona;
-    }
-
 
 }
