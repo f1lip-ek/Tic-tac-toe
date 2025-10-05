@@ -2,50 +2,49 @@ import java.util.Scanner;
 
 public class Game {
 
-    private Box[][] hraciPole;
-    public static int velikost = 3;
-    private Player player;
-    private AI ai;
-    private boolean isPlaying;
+    private final Box[][] gameField;
+    public static int fieldSize = 3;
+    private final Player player;
+    private final AI ai;
+    private final EndChecker endChecker;
 
-    private int[] aiPole;
-
-    private Scanner sc = new Scanner(System.in);
+    private Scanner sc;
 
     public Game() {
-        this.hraciPole = new Box[velikost][velikost];
+        this.endChecker = new EndChecker();
+        this.gameField = new Box[fieldSize][fieldSize];
         this.player = new Player();
         this.ai = new AI();
-        this.isPlaying = false;
+        this.sc = new Scanner(System.in);
     }
 
-    public void setPlaying(boolean playing) {
-        isPlaying = playing;
+    public EndChecker getEndChecker(){
+        return this.endChecker;
     }
 
     public void setHraciPole(){
-        for (int i = 0; i < velikost; i++) {
-            for (int j = 0; j < velikost; j++) {
-                hraciPole[i][j] = new Box();
+        for (int i = 0; i < fieldSize; i++) {
+            for (int j = 0; j < fieldSize; j++) {
+                gameField[i][j] = new Box();
             }
         }
     }
 
     public void setPole(){
-//        hraciPole[0][0].setJeAktivni(player);
-//        hraciPole[0][1].setJeAktivni(player);
-//        hraciPole[0][2].setJeAktivni(player);
-//        hraciPole[1][0].setJeAktivni(player);
-//        hraciPole[1][1].setJeAktivni(player);
-//        hraciPole[1][2].setJeAktivni(player);
-//        hraciPole[2][2].setJeAktivni(player);
-//        hraciPole[2][0].setJeAktivni(player);
+        gameField[0][0].setJeAktivni(player);
+        gameField[0][1].setJeAktivni(player);
+        gameField[0][2].setJeAktivni(player);
+        gameField[1][0].setJeAktivni(player);
+        gameField[1][1].setJeAktivni(player);
+        gameField[1][2].setJeAktivni(player);
+        gameField[2][2].setJeAktivni(player);
+        gameField[2][0].setJeAktivni(player);
     }
 
     public void start(){
         setHraciPole();
-        setPole();
-        while(isPlaying){
+        //setPole();
+        while(endChecker.isPlaying()){
             System.out.println(printHraciPole());
             setPrvek(player);
             setPrvek(ai);
@@ -54,9 +53,9 @@ public class Game {
 
     public String printHraciPole(){
         String pole = "";
-        for (int i = 0; i < velikost; i++) {
-            for (int j = 0; j < velikost; j++) {
-                pole += hraciPole[i][j].toString();
+        for (int i = 0; i < fieldSize; i++) {
+            for (int j = 0; j < fieldSize; j++) {
+                pole += gameField[i][j].toString();
             }
             pole += "\n";
         }
@@ -68,47 +67,36 @@ public class Game {
             while(true){
                 int x = sc.nextInt() - 1;
                 int y = sc.nextInt() - 1;
-                if (!hraciPole[x][y].isJeAktivni()) {
-                    this.hraciPole[x][y].setJeAktivni(e);
+                if (!gameField[x][y].isJeAktivni()) {
+                    this.gameField[x][y].setJeAktivni(e);
+                    endChecker.gameEnd(gameField, e, x, y);
                     break;
                 } else {
                     System.out.println("Nejde, Zkus znovu\n");
                 }
             }
         } else if (e == ai) {
-            this.aiPole = ai.getMove();
+            int[] aiPole = ai.getMove();
             int i = 1;
-            while(!gameEnd()){
-                if(!hraciPole[aiPole[0]][aiPole[1]].isJeAktivni()){
-                    this.hraciPole[aiPole[0]][aiPole[1]].setJeAktivni(e);
+            while(/*!endChecker.gameEnd(gameField, e, aiPole[0], aiPole[1])*/true){
+                if(!gameField[aiPole[0]][aiPole[1]].isJeAktivni()){
+                    this.gameField[aiPole[0]][aiPole[1]].setJeAktivni(e);
                     break;
                 }else /*if (hraciPole[aiPole[0]][aiPole[1]].isJeAktivni())*/{
-                    this.aiPole = ai.getMove();
-                    System.out.print("\n"+ i + "\n\n");
+                    aiPole = ai.getMove();
+                    //System.out.print("\n"+ i + "\n\n");
                     i++;
                 }
             }
-            if (gameEnd()){
+            endChecker.gameEnd(gameField, e, aiPole[0], aiPole[1]);
+            /*
+            if (endChecker.gameEnd(gameField, e)){
                 System.out.println(printHraciPole());
                 System.out.println("Game Over");
                 System.exit(0);
-            }
+            }*/
         }
     }
 
-    public boolean gameEnd(){
-        int counter = 0;
-        for (int i = 0; i < velikost; i++) {
-            for (int j = 0; j < velikost; j++) {
-                if(hraciPole[i][j].isJeAktivni()){
-                    counter++;
-                }
-            }
-        }
-        if (counter == Math.pow(velikost, 2)){
-            return true;
-        } else {
-            return false;
-        }
-    }
+
 }

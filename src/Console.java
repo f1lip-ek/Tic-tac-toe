@@ -7,7 +7,7 @@ public class Console {
     }
 
     public void start(){
-        game.setPlaying(true);
+        game.getEndChecker().setPlaying(true);
         game.start();
     }
 

@@ -7,11 +7,17 @@ public class AI extends Entita {
 
     public AI(){
         this.ikona = "0";
+        this.entita = Entity.AI;
         this.rd = new Random();
     }
 
     public int[] getMove(){
-        return new int[]{rd.nextInt(Game.velikost)/*x*/, rd.nextInt(Game.velikost)/*y*/};
+        return new int[]{rd.nextInt(Game.fieldSize)/*x*/, rd.nextInt(Game.fieldSize)/*y*/};
+    }
+
+    public int[] getMoveAdvanced(){
+
+        return new int[]{rd.nextInt(Game.fieldSize)/*x*/, rd.nextInt(Game.fieldSize)/*y*/};
     }
 
     public void addTah(){

@@ -2,6 +2,7 @@ public class Player extends Entita{
 
     public Player(){
         this.ikona = "X";
+        this.entita = Entity.PLAYER;
     }
 
     public void addTah(){
