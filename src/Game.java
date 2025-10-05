@@ -89,12 +89,6 @@ public class Game {
                 }
             }
             endChecker.gameEnd(gameField, e, aiPole[0], aiPole[1]);
-            /*
-            if (endChecker.gameEnd(gameField, e)){
-                System.out.println(printHraciPole());
-                System.out.println("Game Over");
-                System.exit(0);
-            }*/
         }
     }
 
