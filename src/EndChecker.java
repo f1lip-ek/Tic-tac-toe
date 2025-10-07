@@ -62,8 +62,6 @@ public class EndChecker {
         }
         if (x == 0 && y == 2 && (gameField[x][y].getEntity() == e.entity && gameField[x+1][y-1].getEntity() == e.entity && gameField[x+2][y-2].getEntity() == e.entity)) {
             doEnd(e);
-        }else{
-            throw new ArrayIndexOutOfBoundsException();
         }
     }
 
