@@ -2,7 +2,6 @@ public class EndChecker {
 
     private boolean isPlaying;
     private boolean isWin;
-    private Entity winner;
 
     public EndChecker(){
         this.isPlaying = false;
@@ -66,7 +65,7 @@ public class EndChecker {
     }
 
     public void doEnd(EntityClass e){
-        winner = e.entity;
+        Entity winner = e.entity;
         isWin = true;
         System.out.println("Konec hry");
         System.out.println("Vyhral " + winner);
@@ -85,14 +84,12 @@ public class EndChecker {
         return counter;
     }
 
-    public boolean gameEnd(Box[][] gameField, EntityClass e, int x, int y){
+    public void gameEnd(Box[][] gameField, EntityClass e, int x, int y){
         if (isEnd(gameField) == Math.pow(Game.fieldSize, 2) && !isWin){
             System.out.println("Remiza");
             System.exit(0);
-            return true;
         }
         setWin(e, gameField, x, y);
-        return false;
     }
 
 }
